@@ -4,7 +4,7 @@ import csv
 import re
 from word2number import w2n
 
-url = "https://books.toscrape.com/"
+url = "https://books.toscrape.com/catalogue/category/books/psychology_26/index.html"
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
 }
@@ -48,12 +48,11 @@ if response.status_code == 200:
         else:
             print(f"Erreur : {response.status_code}")
         
-    with open('single_book.csv', 'w', encoding='utf-8', newline='') as fichier_csv:
+    with open('category.csv', 'w', encoding='utf-8', newline='') as fichier_csv:
         writer = csv.DictWriter(fichier_csv, fieldnames=['product_page_url', 'universal_product_code (upc)', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available', 'product_description', 'category', 'review_rating', 'image_url'])
         writer.writeheader()
             
         writer.writerow({'product_page_url': url_single_book, 'universal_product_code (upc)': universal_product_code, 'title': title, 'price_including_tax' : price_including_tax, 'price_excluding_tax': price_excluding_tax, 'number_available': number_available, 'product_description': product_description, 'category': category, 'review_rating': review_rating, 'image_url': image_url})
-        print('encoding over')
         
 else:
     print(f"Erreur : {response.status_code}")
