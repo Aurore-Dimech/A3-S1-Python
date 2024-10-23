@@ -9,7 +9,7 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
 }
 response = requests.get(url, headers=headers)
-soup = BeautifulSoup(response.text, 'html.parser')
+soup = BeautifulSoup(response.content, 'html.parser')
 
 
 if response.status_code == 200:
@@ -19,7 +19,7 @@ if response.status_code == 200:
     url_single_book = str("https://books.toscrape.com/" + product_page_url)
     
     response_single_book = requests.get(url_single_book, headers=headers)
-    soup_single_book = BeautifulSoup(response_single_book.text, 'html.parser')
+    soup_single_book = BeautifulSoup(response_single_book.content, 'html.parser')
         
     if response.status_code == 200:
             
