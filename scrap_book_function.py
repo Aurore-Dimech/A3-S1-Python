@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import requests
 import re
 from word2number import w2n
+from PIL import Image
 
 
 url = "https://books.toscrape.com/"
@@ -30,17 +31,17 @@ def get_informations(scrapped_url):
         data['number_available'] = re.search(r"\d+", availability).group()
         
         data['product_description'] = soup_single_book.select_one('div#product_description ~ p').text
-        data['category'] = soup_single_book.select_one('ul.breadcrumb > li:nth-child(3)').text
+        data['category'] = soup_single_book.select_one('ul.breadcrumb > li:nth-child(3) > a').text
         
         data['review_rating'] = w2n.word_to_num(soup_single_book.find('p', class_='star-rating')['class'][1])
         
         data['image_url'] = str(url + soup_single_book.find('img')['src'].replace('../',''))
-        
-        # print(data)
         
         return data
         
     else:
         print(f"Erreur : {response.status_code}")
             
-            
+
+def save_image(image_url):
+    Image.open(image_url)            

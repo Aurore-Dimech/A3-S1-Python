@@ -32,7 +32,7 @@ if response.status_code == 200:
         number_available = re.search(r"\d+", availability).group()
     
         product_description = soup_single_book.select_one('div#product_description ~ p').text
-        category = soup_single_book.select_one('ul.breadcrumb > li:nth-child(3)').text
+        category = soup_single_book.select_one('ul.breadcrumb > li:nth-child(3) > a').text
     
         review_rating = w2n.word_to_num(soup_single_book.find('p', class_='star-rating')['class'][1])
     
