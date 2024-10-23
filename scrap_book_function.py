@@ -4,6 +4,7 @@ import requests
 import re
 from word2number import w2n
 from PIL import Image
+from urllib.request import urlopen
 
 
 url = "https://books.toscrape.com/"
@@ -43,5 +44,9 @@ def get_informations(scrapped_url):
         print(f"Erreur : {response.status_code}")
             
 
-def save_image(image_url):
-    Image.open(image_url)            
+def save_image(image_url, image_name):
+    print('getting Image')
+    with Image.open(urlopen(image_url)) as image:
+        path = str('./images/' + image_name + '.jpg')
+        image.save(path)
+    print('Image added')      

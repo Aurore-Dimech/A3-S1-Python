@@ -3,6 +3,7 @@ import requests
 import csv
 import scrap_book_function
 import os
+import shutil
 
 base_url = "https://books.toscrape.com/catalogue/category/books/sequential-art_5/"
 url = base_url + "/index.html"
@@ -17,7 +18,7 @@ directory_name = "images"
 try:
     os.mkdir(directory_name)
 except FileExistsError:
-    os.rmdir(directory_name)
+    shutil.rmtree(directory_name)
     os.mkdir(directory_name)
 
 if response.status_code == 200:
@@ -56,9 +57,9 @@ if response.status_code == 200:
                 data = scrap_book_function.get_informations(product_page_url)
                 scraped_books.append(data['universal_product_code (upc)'])
 
-                scrap_book_function.save_image(data['image_url'])
+                scrap_book_function.save_image(data['image_url'], data['title'])
             
-                writer.writerow(data)     
+                # writer.writerow(data)     
             
 
         
