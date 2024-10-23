@@ -5,7 +5,7 @@ import scrap_book_function
 import os
 import shutil
 
-base_url = "https://books.toscrape.com/catalogue/category/books/sequential-art_5/"
+base_url = "https://books.toscrape.com/catalogue/category/books/mystery_3/"
 url = base_url + "/index.html"
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
@@ -36,7 +36,10 @@ if response.status_code == 200:
 
         if len(scraped_books) < 20:
             books = soup.select('section > div:nth-child(2) > ol > li > .product_pod > .image_container > a')
-            next_page_url = soup.select_one('ul.pager > li.next > a')['href']
+            try:
+                next_page_url = soup.select_one('ul.pager > li.next > a')['href']
+            except TypeError as e:
+                next_page_url = None
         else:
             books = soup_next_page.select('section > div:nth-child(2) > ol > li > .product_pod > .image_container > a')
             try:

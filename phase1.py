@@ -21,7 +21,7 @@ if response.status_code == 200:
     response_single_book = requests.get(url_single_book, headers=headers)
     soup_single_book = BeautifulSoup(response_single_book.content, 'html.parser')
         
-    if response.status_code == 200:
+    if response_single_book.status_code == 200:
             
         universal_product_code = soup_single_book.select_one('div.page > div.page_inner > .content > #content_inner > .product_page > table > tr:first-of-type td:first-of-type').text
         title = soup_single_book.select_one('h1').text
@@ -39,7 +39,7 @@ if response.status_code == 200:
         image_url = str(url + soup_single_book.find('img')['src'].replace('../',''))
 
     else:
-        print(f"Erreur : {response.status_code}")
+        print(f"Erreur : {response_single_book.status_code}")
         
     with open('single_book.csv', 'w', encoding='utf-8', newline='') as fichier_csv:
         writer = csv.DictWriter(fichier_csv, fieldnames=['product_page_url', 'universal_product_code (upc)', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available', 'product_description', 'category', 'review_rating', 'image_url'])

@@ -5,14 +5,14 @@ import re
 from word2number import w2n
 from PIL import Image
 from urllib.request import urlopen
+import os
+import shutil
 
 
 url = "https://books.toscrape.com/"
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
 }
-response = requests.get(url, headers=headers)
-soup = BeautifulSoup(response.text, 'html.parser')
 
 
 def get_informations(scrapped_url):
@@ -22,7 +22,7 @@ def get_informations(scrapped_url):
     data = {}
     data['product_page_url'] = scrapped_url
         
-    if response.status_code == 200:  
+    if response_single_book.status_code == 200:  
         data['universal_product_code (upc)'] = soup_single_book.select_one('div.page > div.page_inner > .content > #content_inner > .product_page > table > tr:first-of-type td:first-of-type').text
         data['title'] = soup_single_book.select_one('h1').text
         data['price_including_tax'] = soup_single_book.select_one('table > tr:nth-child(4) td:first-of-type').text
@@ -31,7 +31,11 @@ def get_informations(scrapped_url):
         availability = soup_single_book.select_one('table > tr:nth-child(6) td:first-of-type').text
         data['number_available'] = re.search(r"\d+", availability).group()
         
-        data['product_description'] = soup_single_book.select_one('div#product_description ~ p').text
+        try:
+            data['product_description'] = soup_single_book.select_one('div#product_description ~ p').text
+        except:
+            data['product_description'] = ''
+        
         data['category'] = soup_single_book.select_one('ul.breadcrumb > li:nth-child(3) > a').text
         
         data['review_rating'] = w2n.word_to_num(soup_single_book.find('p', class_='star-rating')['class'][1])
@@ -41,12 +45,26 @@ def get_informations(scrapped_url):
         return data
         
     else:
-        print(f"Erreur : {response.status_code}")
+        print(f"Erreur : {response_single_book.status_code}")
             
 
+
 def save_image(image_url, image_name):
-    print('getting Image')
     with Image.open(urlopen(image_url)) as image:
-        path = str('./images/' + image_name + '.jpg')
+        name = re.sub(r'[<>:"/\|?*]', '', image_name)
+        path = str('./images/' + name + '.jpg')
         image.save(path)
-    print('Image added')      
+
+def save_image_in_directory(image_url, image_category, image_name):
+    with Image.open(urlopen(image_url)) as image:
+        name = re.sub(r'[<>:"/\|?*]', '', image_name)
+        path = str('./images/' + image_category + '/' + name + '.jpg')
+        image.save(path)
+
+
+def create_directory(directory_name):
+    try:
+        os.mkdir(directory_name)
+    except FileExistsError:
+        shutil.rmtree(directory_name)
+        os.mkdir(directory_name)
