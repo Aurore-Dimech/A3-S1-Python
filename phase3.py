@@ -59,7 +59,7 @@ if response.status_code == 200:
 
                 scrap_book_function.save_image(data['image_url'], data['title'])
             
-                # writer.writerow(data)     
+                writer.writerow(data)     
             
 
         
