@@ -16,6 +16,13 @@ headers = {
 
 
 def get_informations(scrapped_url):
+    
+    """Cette fonction retourne les informations d'un livre.
+    
+    Arguments :
+    scrapped_url -- url du livre dont on veut récupérer les informations
+    """
+    
     response_single_book = requests.get(scrapped_url, headers=headers)
     soup_single_book = BeautifulSoup(response_single_book.content, 'html.parser')
     
@@ -50,12 +57,29 @@ def get_informations(scrapped_url):
 
 
 def save_image(image_url, image_name):
+    
+    """Cette fonction permet de sauvegarder une image à la racine du projet.
+    
+    Arguments :
+    image_url -- url de l'image à enregistrer
+    image_name -- nome que l'on veut donner à l'image
+    """
+    
     with Image.open(urlopen(image_url)) as image:
         name = re.sub(r'[<>:"/\|?*]', '', image_name)
         path = str('./images/' + name + '.jpg')
         image.save(path)
 
 def save_image_in_directory(image_url, image_category, image_name):
+    
+    """Cette fonction permet de sauvegarder une image dans un dossier donné.
+    
+    Arguments :
+    image_url -- url de l'image à enregistrer
+    image_category -- nom du dossier dans lequel on souhaite enregistrer l'image
+    image_name -- nome que l'on veut donner à l'image
+    """
+    
     with Image.open(urlopen(image_url)) as image:
         name = re.sub(r'[<>:"/\|?*]', '', image_name)
         path = str('./images/' + image_category + '/' + name + '.jpg')
@@ -63,6 +87,14 @@ def save_image_in_directory(image_url, image_category, image_name):
 
 
 def create_directory(directory_name):
+    
+    """Cette fonction permet de créer un dossier à la racine du projet.
+    Si un dossier existe déjà avec le nom qu'on souhaite donner au nouveau dossier, alors elle supprime l'ancien dossier ainsi que les documents dedans, et récrée un dossier avec le nom souhaité.
+    
+    Arguments :
+    directory_name -- nom que l'on souhaite donner au projet à créer
+    """
+    
     try:
         os.mkdir(directory_name)
     except FileExistsError:
