@@ -17,7 +17,7 @@ for single_csv in csv_list:
         
 
 # plt.pie(y, labels = pie_labels, autopct='%1.1f%%')
-# plt.title('Pourcentage de livres par catégorie')
+# plt.title('Pourcentage de livres en fonction de la catégorie')
 # plt.show() 
 
 
