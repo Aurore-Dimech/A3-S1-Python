@@ -45,7 +45,7 @@ python3 [nom du fichier à jouer]
 
 **Pensez à bien remplacer `[nom du fichier à jouer]` par le nom effectif du fichier que vous souhaitez lancer (phase1.py, phase2.py, phase3.py, phase4.py, ou encore phase5.py) !**
 
-Selon le fichier que vous lancez, vous obtiendrez un scraping plus ou moins complet. **Chaque fichier peut être joué individuellement des autres, excepté pour `phase5.py`qui nécessite d'avoir lancé `phase4.py`.**    
+Selon le fichier que vous lancez, vous obtiendrez un scraping plus ou moins complet. **Chaque fichier peut être joué individuellement des autres, excepté pour `phase5_piegraph.py`, `phase5_bargraph.py` et `phase6.py` qui nécessitent d'avoir lancé `phase4.py`.**    
 Voici ce que font tous les fichiers :
 
 ### 1. phase1.py
@@ -69,25 +69,23 @@ Ce script Python consulte le site entier de [Books to Scrape](https://books.tosc
 Il note les informations des livres dans différents documents csv (ayant chacun le nom d'une catégorie et comprenant tous les livres de la catégorie concernée) situés dans un dossier appelé `csv` et situé à la racine du projet.   
 Il stock également toutes les couvertures des livres dans des dossiers ayant le nom de la catégorie dont fait partie chaque livre, ces dossiers étant eux-mêmes rangés dans le dossier `images`. Chaque image a le nom du livre auquel elle appartient.
 
-### 5. phase5.py
+### 5. phase5_piegraph.py & phase5_bargraph
 
-**Il est nécessaire d'avoir fait tourner phase4.py avant de lancer phase5.py !**     
-Ce script Python permet de générer des graphiques à partir des fichers csv générés dans `phase4.py`.   
-Dans l'état actuel, le graphique généré montre sous forme de graphique en barre le prix moyen des livres en fonction de la catégorie.     
-Il est également possible d'afficher un diagramme circulaire montrant le pourcentage de livres par catégorie. Pour cela, il faut décommenter les lignes 19 à 20 de `phase5.py` :
+**Il est nécessaire d'avoir fait tourner phase4.py avant de lancer phase5_piegraph.py ou phase5_bargraph !**  
 
-```
-plt.pie(y, labels = pie_labels, autopct='%1.1f%%')
-plt.title('Pourcentage de livres en fonction de la catégorie')
-plt.show() 
-```
+Ces scripts Python permettent de générer des graphiques à partir des fichers csv générés dans `phase4.py`.  
 
-Puis commenter les lignes 38 à 42 de `phase5.py` :
+1. phase5_piegraph.py   
 
-```
-# plt.barh(categories, mean_prices)
-# plt.xlabel('Prix moyen (en £)')
-# plt.ylabel('Catégories')
-# plt.title('Prix moyen des livres en fonction de la catégorie')
-# plt.show()
-```
+Ce script Python permet d'obtenir un diagramme circulaire montrant le pourcentage de livres par catégorie.   
+
+2. phase5_bargraph.py   
+
+Le graphique généré montre sous forme de graphique en barre le prix moyen des livres en fonction de la catégorie.   
+
+### 6. phase6.py
+
+**Il est nécessaire d'avoir fait tourner phase4.py avant de lancer phase6.py !**  
+
+Ce script permet d'obtenir un pdf présentant diverses informations relatives aux données récupérées en scrapant [Books to Scrape](https://books.toscrape.com/index.html).   
+Le PDF est appelé `rapport_prix_livres.pdf` et est placé à la racine du projet.

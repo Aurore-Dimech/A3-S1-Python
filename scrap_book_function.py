@@ -7,6 +7,8 @@ from PIL import Image
 from urllib.request import urlopen
 import os
 import shutil
+import statistics
+import csv
 
 
 url = "https://books.toscrape.com/"
@@ -62,7 +64,7 @@ def save_image(image_url, image_name):
     
     Arguments :
     image_url -- url de l'image à enregistrer
-    image_name -- nome que l'on veut donner à l'image
+    image_name -- nom que l'on veut donner à l'image
     """
     
     with Image.open(urlopen(image_url)) as image:
@@ -77,7 +79,7 @@ def save_image_in_directory(image_url, image_category, image_name):
     Arguments :
     image_url -- url de l'image à enregistrer
     image_category -- nom du dossier dans lequel on souhaite enregistrer l'image
-    image_name -- nome que l'on veut donner à l'image
+    image_name -- nom que l'on veut donner à l'image
     """
     
     with Image.open(urlopen(image_url)) as image:
@@ -100,3 +102,85 @@ def create_directory(directory_name):
     except FileExistsError:
         shutil.rmtree(directory_name)
         os.mkdir(directory_name)
+
+
+def get_global_mean():
+    
+    """Cette fonction permet de retourner la moyenne totale de tous les livres.
+    
+    Arguments :
+    None
+    """
+    
+    csv_list = (os.listdir('./csv'))
+    
+    price = 'price_including_tax'
+    mean_prices = []
+    
+    for single_csv in csv_list:
+        with open('./csv/' + single_csv, 'r') as file:
+            reader = csv.DictReader(file)
+            category_prices = [float(row[price].replace('£', '')) for row in reader]
+
+            if category_prices:
+                mean_price = statistics.mean(category_prices)
+                mean_prices.append(mean_price)
+    
+    global_mean_price = str(float("{:.2f}".format(statistics.mean(mean_prices))))
+    
+    return global_mean_price
+    
+def get_most_filled_category():
+    
+    """Cette fonction permet de retourner le nom de la catégorie avec le plus de livres.
+    
+    Arguments :
+    None
+    """
+ 
+    csv_list = (os.listdir('./csv'))
+    
+    most_filled_category = 0
+    
+    for single_csv in csv_list:
+        with open('./csv/' + single_csv, 'r') as file:
+            reader = csv.reader(file)
+            row_count = len(list(reader))-1
+            
+            if row_count > most_filled_category:
+                most_filled_category_name = single_csv
+                most_filled_category = row_count
+                
+    return most_filled_category_name
+    
+def get_most_expensive_category():
+    
+    """Cette fonction permet de retourner le nom de la catégorie étant en moyenne la plus chère.
+    
+    Arguments :
+    None
+    """
+ 
+    csv_list = (os.listdir('./csv'))
+    
+    mean_prices = []
+    categories = []
+    price = 'price_including_tax'
+    higher_mean = 0
+
+    for single_csv in csv_list:
+        with open('./csv/' + single_csv, 'r') as file:
+            reader = csv.DictReader(file)
+            category_prices = [float(row[price].replace('£', '')) for row in reader]
+
+            if category_prices:
+                mean_price = statistics.mean(category_prices)
+                mean_prices.append(mean_price)
+                categories.append(single_csv.replace('.csv', ''))
+            
+    for i in range(0, len(mean_prices)):
+        if mean_prices[i] > higher_mean:
+            higher_mean = mean_prices[i]
+            most_expensive_category = categories[i]
+            
+    return most_expensive_category
