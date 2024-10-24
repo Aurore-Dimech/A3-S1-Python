@@ -10,17 +10,17 @@ Ce projet contient plusieurs fichiers permettant de scaper différentes informat
 Lignes de commande pour Windows :
 
 ```
-python3 -m venv env
+python -m venv env
 
-source env/bin/activate
+env\Scripts\activate
 ```
 
 Lignes de commande pour Mac/ Linux :
 
 ```
-python -m venv env
+python3 -m venv env
 
-env\Scripts\activate
+source env/bin/activate
 ```
 
 3. Il faut par la suite installer les dépendances dans l'environnement virtuel. Afin de réaliser cela, veuillez taper la ligne de commande ci-dessous.
@@ -43,9 +43,10 @@ ou :
 python3 [nom du fichier à jouer]
 ```
 
-**Pensez à bien remplacer `[nom du fichier à jouer]` par le nom effectif du fichier que vous souhaitez lancer (phase1.py, phase2.py, phase3.py, phase4.py, ou encore phase5.py) !**
+**Pensez à bien remplacer `[nom du fichier à jouer]` par le nom effectif du fichier que vous souhaitez lancer (`phase1.py`, `phase2.py`, `phase3.py`, `phase4.py`, `phase5_piegraph.py`, `phase5_bargraph.py`, ou encore `phase6.py`) !**
 
-Selon le fichier que vous lancez, vous obtiendrez un scraping plus ou moins complet. **Chaque fichier peut être joué individuellement des autres, excepté pour `phase5_piegraph.py`, `phase5_bargraph.py` et `phase6.py` qui nécessitent d'avoir lancé `phase4.py`.**    
+Selon le fichier que vous lancez, vous obtiendrez un scraping plus ou moins complet. **Chaque fichier peut être joué individuellement des autres, excepté pour `phase5_piegraph.py`, `phase5_bargraph.py` et `phase6.py` qui nécessitent d'avoir lancé `phase4.py`.**       
+
 Voici ce que font tous les fichiers :
 
 ### 1. phase1.py
@@ -87,5 +88,5 @@ Le graphique généré montre sous forme de graphique en barre le prix moyen des
 
 **Il est nécessaire d'avoir fait tourner phase4.py avant de lancer phase6.py !**  
 
-Ce script permet d'obtenir un pdf présentant diverses informations relatives aux données récupérées en scrapant [Books to Scrape](https://books.toscrape.com/index.html).   
+Ce script permet d'obtenir un pdf présentant diverses informations relatives aux données récupérées en scrapant [Books to Scrape](https://books.toscrape.com/index.html).    
 Le PDF est appelé `rapport_prix_livres.pdf` et est placé à la racine du projet.
