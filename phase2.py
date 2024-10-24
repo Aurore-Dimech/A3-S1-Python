@@ -27,7 +27,10 @@ if response.status_code == 200:
 
         if len(scraped_books) < 20:
             books = soup.select('section > div:nth-child(2) > ol > li > .product_pod > .image_container > a')
-            next_page_url = soup.select_one('ul.pager > li.next > a')['href']
+            try:
+                next_page_url = soup.select_one('ul.pager > li.next > a')['href']
+            except TypeError as e:
+                next_page_url = None
         else:
             books = soup_next_page.select('section > div:nth-child(2) > ol > li > .product_pod > .image_container > a')
             try:
