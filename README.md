@@ -31,7 +31,21 @@ pip install -r requirements.txt
 
 ## Commencez à scraper
 
-Il est maintenant possible de scraper le site. Selon le fichier que vous lancez, vous un scraping plus ou moins complet. Voici ce que font tous les fichiers :
+Il est maintenant possible de scraper le site. Cela est possible en jouant un fichier directement dans votre éditeur de code, ou alord avec les commandes :
+
+```
+Python [nom du fichier à jouer]
+```
+
+ou :
+
+```
+python3 [nom du fichier à jouer]
+```
+
+**Pensez à bien remplacer `[nom du fichier à jouer]` par le nom du fichier que vous souhaitez lancer (phase1.py, phase2.py, phase3.py, phase4.py, phase5.py) !**
+
+Selon le fichier que vous lancez, vous un scraping plus ou moins complet. **Chaque fichier peut être joué individuellement des autres, excepté pour `phase5.py`qui nécessite d'avoir lancé `phase4.y`.**  Voici ce que font tous les fichiers :
 
 ### phase1.py
 
