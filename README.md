@@ -72,7 +72,7 @@ Il stock également toutes les couvertures des livres dans des dossiers ayant le
 
 ### 5. phase5_piegraph.py & phase5_bargraph
 
-**Il est nécessaire d'avoir fait tourner phase4.py avant de lancer phase5_piegraph.py ou phase5_bargraph !**  
+**Il est nécessaire d'avoir fait tourner phase4.py avant de lancer phase5_piegraph.py ou phase5_bargraph.py !**  
 
 Ces scripts Python permettent de générer des graphiques à partir des fichers csv générés dans `phase4.py`.  
 
